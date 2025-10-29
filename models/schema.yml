@@ -54,4 +54,69 @@ sources:
              description: cost of logging
            - name: ship_cost
              description: cost for transport 
+models:
+  - name: int_orders_margin
+    description: adds order_id and margin to int_sales_magin
+    columns:
+      - name: orders_id
+        description: info for order
+        tests:
+          - unique
+          - not_null
+      - name: date_date
+        description: date given
+      - name: revenue
+        description: calculated turnover
+      - name: quantity
+        description: amount of products ordered
+      - name: purchase_cost
+        description: calcualtes purchase cost
+      - name: margin
+        description: calculated magine
+
+  - name: int_sales_margin
+    description: joining sales and product to obtain pruchase cost and margin calcs
+    columns:
+      - name: orders_id
+        description: order_id
+        tests:
+          - not_null
+      - name: products_id
+        description: products_id
+      - name: date_date
+        description: date of order
+
+  - name: int_orders_operational
+    description: orders to ship for op costs
+    columns:
+      - name: date_date
+        description: date of orders
+        tests:
+          - not_null
+
+  - name: finance_days
+    description: daily KPIs
+    columns:
+      - name: date_date
+        description: date of orders
+        tests:
+          - unique
+          - not_null
+      - name: nb_transactions
+        description: number of transactions
+      - name: total_revenue
+        description: total rev calc
+      - name: avg_basket
+        description: averaging basket size, revn/order_num
+      - name: operating_margin
+        description: operating margin
+      - name: total_purchase_cost
+        description: sum of purchase cost
+      - name: total_ship_fee
+        description: sum of ship_fee
+      - name: total_log_cost
+        description: sum of log_cost
+      - name: total_quantity
+        description: sum of quantity
+
 
