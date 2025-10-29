@@ -13,9 +13,45 @@ sources:
       - name: product
         identifier: raw_gz_product
         description: this is the product table for gz
+        columns:
+           - name: products_id
+             description: unique identifier for each product
+             tests: 
+                - unique
+                - not_null 
+           - name: purchse_price
+             description: price of product  
+
       - name: sales
         identifier: raw_gz_sales
         description: this is the sales table for gz
+        tests:
+         - unique:
+             column_name: "(orders_id || '-' || pdt_id)"
+        columns:
+           - name: date_date
+             description: date given
+           - name: orders_id
+             description: info for order
+           - name: pdt_id
+             description: info for product
+           - name: revenue
+             description: calculated turnover
+           - name: quantity
+             description: amount of products ordered
       - name: ship
         identifier: raw_gz_ship
         description: this is the ship table for gz
+        columns:
+           - name: orders_id
+             description: info of order
+             tests: 
+               - unique
+               - not_null 
+           - name: shipping_fee
+             description: cost of shipping fee
+           - name: logcost
+             description: cost of logging
+           - name: ship_cost
+             description: cost for transport 
+
