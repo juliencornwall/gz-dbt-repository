@@ -2,13 +2,14 @@ WITH product_sales_join AS
 (
 SELECT
 products_id,
-SUM(revenue) AS revenue,
-SUM(quantity) AS quantity,
-SUM(quantity * purchase_price) AS purchase_cost
+orders_id,
+date_date,
+ROUND(revenue,2) AS revenue,
+ROUND(quantity,2) AS quantity,
+ROUND(quantity * purchase_price,2) AS purchase_cost
 FROM {{ ref('stg_raw__sales') }}
 LEFT JOIN {{ ref('stg_raw__product') }}
 USING (products_id)
-GROUP BY products_id
 )
 SELECT
 *
