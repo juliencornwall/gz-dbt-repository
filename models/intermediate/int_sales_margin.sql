@@ -14,3 +14,4 @@ SELECT
 *
 , revenue - purchase_cost AS margin
 FROM product_sales_join
+
