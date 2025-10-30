@@ -1,3 +1,5 @@
+
+
 SELECT
 date_date,
 COUNT(orders_id) AS nb_of_transactions,
@@ -10,3 +12,7 @@ ROUND(SUM(logcost), 2) AS total_logcost,
 ROUND(SUM(quantity), 2) AS total_quantity
 FROM {{ ref('int_orders_operational') }}
 GROUP BY date_date
+
+
+
+
