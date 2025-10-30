@@ -10,6 +10,66 @@ sources:
       warn_after: {count: 12, period: hour}
       error_after: {count: 24, period: hour}
     tables:
+# --- New Ad Campaign Sources ---
+      - name: adwords
+        identifier: raw_gz_adwords
+        description: Google Ads campaign performance data
+        columns:
+          - name: campaign_id
+            description: unique identifier for each Google Ads campaign
+          - name: clicks
+            description: number of ad clicks
+          - name: impressions
+            description: number of ad impressions
+          - name: spend
+            description: total ad spend
+          - name: date_date
+            description: date of campaign performance record
+
+      - name: bing
+        identifier: raw_gz_bing
+        description: Microsoft Bing Ads campaign performance data
+        columns:
+          - name: campaign_id
+            description: unique identifier for each Bing Ads campaign
+          - name: clicks
+            description: number of ad clicks
+          - name: impressions
+            description: number of ad impressions
+          - name: spend
+            description: total ad spend
+          - name: date_date
+            description: date of campaign performance record
+
+      - name: criteo
+        identifier: raw_gz_criteo
+        description: Criteo retargeting campaign performance data
+        columns:
+          - name: campaign_id
+            description: unique identifier for each Criteo campaign
+          - name: clicks
+            description: number of ad clicks
+          - name: impressions
+            description: number of ad impressions
+          - name: spend
+            description: total ad spend
+          - name: date_date
+            description: date of campaign performance record
+
+      - name: facebook
+        identifier: raw_gz_facebook
+        description: Meta (Facebook/Instagram) campaign performance data
+        columns:
+          - name: campaign_id
+            description: unique identifier for each Meta campaign
+          - name: clicks
+            description: number of ad clicks
+          - name: impressions
+            description: number of ad impressions
+          - name: spend
+            description: total ad spend
+          - name: date_date
+            description: date of campaign performance record
       - name: product
         identifier: raw_gz_product
         description: this is the product table for gz
