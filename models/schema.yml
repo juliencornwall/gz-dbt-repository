@@ -10,6 +10,66 @@ sources:
       warn_after: {count: 12, period: hour}
       error_after: {count: 24, period: hour}
     tables:
+# --- New Ad Campaign Sources ---
+      - name: adwords
+        identifier: raw_gz_adwords
+        description: Google Ads campaign performance data
+        columns:
+          - name: campaign_id
+            description: unique identifier for each Google Ads campaign
+          - name: clicks
+            description: number of ad clicks
+          - name: impressions
+            description: number of ad impressions
+          - name: spend
+            description: total ad spend
+          - name: date_date
+            description: date of campaign performance record
+
+      - name: bing
+        identifier: raw_gz_bing
+        description: Microsoft Bing Ads campaign performance data
+        columns:
+          - name: campaign_id
+            description: unique identifier for each Bing Ads campaign
+          - name: clicks
+            description: number of ad clicks
+          - name: impressions
+            description: number of ad impressions
+          - name: spend
+            description: total ad spend
+          - name: date_date
+            description: date of campaign performance record
+
+      - name: criteo
+        identifier: raw_gz_criteo
+        description: Criteo retargeting campaign performance data
+        columns:
+          - name: campaign_id
+            description: unique identifier for each Criteo campaign
+          - name: clicks
+            description: number of ad clicks
+          - name: impressions
+            description: number of ad impressions
+          - name: spend
+            description: total ad spend
+          - name: date_date
+            description: date of campaign performance record
+
+      - name: facebook
+        identifier: raw_gz_facebook
+        description: Meta (Facebook/Instagram) campaign performance data
+        columns:
+          - name: campaign_id
+            description: unique identifier for each Meta campaign
+          - name: clicks
+            description: number of ad clicks
+          - name: impressions
+            description: number of ad impressions
+          - name: spend
+            description: total ad spend
+          - name: date_date
+            description: date of campaign performance record
       - name: product
         identifier: raw_gz_product
         description: this is the product table for gz
@@ -55,24 +115,33 @@ sources:
            - name: ship_cost
              description: cost for transport 
 models:
-  - name: int_orders_margin
-    description: adds order_id and margin to int_sales_magin
+  - name: int_campaigns_day
+    description: union of ad platforms aggregated by day
     columns:
-      - name: orders_id
-        description: info for order
-        tests:
-          - unique
-          - not_null
       - name: date_date
-        description: date given
-      - name: revenue
-        description: calculated turnover
-      - name: quantity
-        description: amount of products ordered
-      - name: purchase_cost
-        description: calcualtes purchase cost
-      - name: margin
-        description: calculated magine
+        description: date of the aggregated campaign metrics
+      - name: total_ads_cost
+        description: total ad spend for the day (sum of ads_cost)
+      - name: total_impressions
+        description: total impressions for the day (sum of impression)
+      - name: total_clicks
+        description: total clicks for the day (sum of click)
+
+  - name: int_campaigns
+    description: union all of adwords, bing, criteo, facebook.
+    tests:
+      - unique:
+          column_name: "(campaign_key || '-' || date_date)"
+    columns:
+      - name: campaign_name
+        description: campaign name from all ad platforms
+        tests:
+          - not_null
+      - name: paid_source
+        description: ad platform the data came from (adwords, bing, criteo, facebook)
+        tests:
+          - not_null
+
 
   - name: int_sales_margin
     description: joining sales and product to obtain pruchase cost and margin calcs
@@ -108,8 +177,8 @@ models:
         description: total rev calc
       - name: avg_basket
         description: averaging basket size, revn/order_num
-      - name: operating_margin
-        description: operating margin
+      - name: operational_margin
+        description: operatingal margin
       - name: total_purchase_cost
         description: sum of purchase cost
       - name: total_ship_fee
